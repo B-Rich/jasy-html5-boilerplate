@@ -17,14 +17,6 @@ def distclean():
     
     session.clean()
     Repository.distclean()
-
-
-@task
-def api():
-    """Build API viewer"""
-    
-    Task.runTask("apibrowser", "build")
-    ApiWriter(session).write("$prefix/data")
     
     
 @task
