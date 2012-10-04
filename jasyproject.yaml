@@ -1,0 +1,4 @@
+name: $${name}
+requires:
+- source: https://github.com/zynga/core.git
+  version: 0.8
