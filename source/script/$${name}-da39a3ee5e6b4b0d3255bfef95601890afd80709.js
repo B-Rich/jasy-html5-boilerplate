@@ -1,0 +1,1 @@
+core.io.Queue.load(["class/Main.js"], function(){ new $${name}.Main; }, null, true);

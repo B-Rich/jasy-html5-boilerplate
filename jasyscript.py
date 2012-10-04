@@ -62,17 +62,36 @@ def build():
 
     # Initialize shared objects
     assetManager = AssetManager(session).addBuildProfile()
-    outputManager = OutputManager(session, assetManager, compressionLevel=2)
+    outputManager = OutputManager(session, assetManager, compressionLevel=0)
     fileManager = FileManager(session)
 
     # Deploy assets
     outputManager.deployAssets(["$${name}.Main"])
 
+    # Copy files from source
+    copyFiles = [
+        "index.html",
+        "404.html",
+        "apple-touch-icon-57x57-precomposed.png",
+        "apple-touch-icon-72x72-precomposed.png",
+        "apple-touch-icon-114x114-precomposed.png",
+        "apple-touch-icon-144x144-precomposed.png",
+        "apple-touch-icon-precomposed.png",
+        "apple-touch-icon.png",
+        "favicon.ico",
+        "humans.txt",
+        "robots.txt",
+        "vendor/jquery-1.8.2.min.js",
+        "vendor/modernizr-2.6.2.min.js",
+        "vendor/plugins.js",
+        "vendor/main.css",
+        "vendor/normalize.css"
+    ]
+    for f in copyFiles:
+        fileManager.updateFile("source/" + f, "$prefix/" + f)
+
     # Write kernel script
     outputManager.storeKernel("$prefix/script/kernel.js", debug=True)
-
-    # Copy files from source
-    fileManager.updateFile("source/index.html", "$prefix/index.html")
 
     # Process every possible permutation
     for permutation in session.permutate():
